@@ -45,7 +45,8 @@ var colors = {
   ignite300: "#00B37E",
   ignite500: "#00875F",
   ignite700: "#015F43",
-  ignite900: "#00291D"
+  ignite900: "#00291D",
+  test: "#FFF"
 };
 var space = {
   1: "0.25rem",
@@ -133,7 +134,7 @@ var {
 
 // src/components/Box.tsx
 var Box = styled("div", {
-  padding: "$4",
+  padding: "$6",
   borderRadius: "$md",
   backgroundColor: "$gray800",
   border: "1px solid $gray600"
@@ -201,8 +202,8 @@ import * as Avatar from "@radix-ui/react-avatar";
 var AvatarContainer = styled(Avatar.Root, {
   borderRadius: "$full",
   display: "inline-block",
-  width: "$12",
-  height: "$12",
+  width: "$16",
+  height: "$16",
   overflow: "hidden"
 });
 var AvatarImage = styled(Avatar.Image, {
@@ -258,6 +259,9 @@ var Button = styled("button", {
   "&:disabled": {
     cursor: "not-allowed"
   },
+  "&:focus": {
+    boxShadow: "0 0 0 2px $colors$gray100"
+  },
   variants: {
     variant: {
       primary: {
@@ -308,21 +312,36 @@ var Button = styled("button", {
 });
 Button.displayName = "Button";
 
+// src/components/TextInput/index.tsx
+import { forwardRef } from "react";
+
 // src/components/TextInput/styles.ts
 var TextInputContainer = styled("div", {
   backgroundColor: "$gray900",
-  padding: "$3 $4",
   borderRadius: "$sm",
   boxSizing: "border-box",
   border: "2px solid $gray900",
   display: "flex",
-  alignItems: "baseline",
+  alignItems: "center",
+  variants: {
+    size: {
+      sm: {
+        padding: "$2 $3"
+      },
+      md: {
+        padding: "$3 $4"
+      }
+    }
+  },
   "&:has(input:focus)": {
     borderColor: "$ignite300"
   },
   "&:has(input:disabled)": {
     opacity: 0.5,
     cursor: "not-allowed"
+  },
+  defaultVariants: {
+    size: "md"
   }
 });
 var Prefix = styled("span", {
@@ -345,20 +364,22 @@ var Input = styled("input", {
   "&:disabled": {
     cursor: "not-allowed"
   },
-  "&:placeholder": {
+  "&::placeholder": {
     color: "$gray400"
   }
 });
 
 // src/components/TextInput/index.tsx
 import { jsx as jsx2, jsxs as jsxs2 } from "react/jsx-runtime";
-function TextInput(_a) {
-  var _b = _a, { prefix } = _b, props = __objRest(_b, ["prefix"]);
-  return /* @__PURE__ */ jsxs2(TextInputContainer, { children: [
-    !!prefix && /* @__PURE__ */ jsx2(Prefix, { children: prefix }),
-    /* @__PURE__ */ jsx2(Input, __spreadValues({}, props))
-  ] });
-}
+var TextInput = forwardRef(
+  (_a, ref) => {
+    var _b = _a, { prefix } = _b, props = __objRest(_b, ["prefix"]);
+    return /* @__PURE__ */ jsxs2(TextInputContainer, { children: [
+      !!prefix && /* @__PURE__ */ jsx2(Prefix, { children: prefix }),
+      /* @__PURE__ */ jsx2(Input, __spreadValues({ ref }, props))
+    ] });
+  }
+);
 TextInput.displayName = "TextInput";
 
 // src/components/TextArea.tsx
@@ -410,7 +431,7 @@ var CheckboxContainer = styled(Checkbox.Root, {
   '&[data-state="checked"]': {
     backgroundColor: "$ignite300"
   },
-  "&:focus": {
+  '&:focus, &[data-state="checked"]': {
     border: "2px solid $ignite300"
   }
 });
@@ -492,6 +513,120 @@ function MultiStep({ size, currentStep = 1 }) {
   ] });
 }
 MultiStep.displayName = "MultiStep";
+
+// src/components/Toast/index.tsx
+import { X } from "phosphor-react";
+import { useState } from "react";
+
+// src/components/Toast/styles.ts
+import * as Toast from "@radix-ui/react-toast";
+var ToastProvider = styled(Toast.Provider, {});
+var slideIn2 = keyframes({
+  from: {
+    transform: "translateX(100%)"
+  },
+  to: {
+    transform: "translateX(0)"
+  }
+});
+var slideOut2 = keyframes({
+  from: {
+    transform: "translateX(0)"
+  },
+  to: {
+    transform: "translateX(100%)"
+  }
+});
+var ToastRoot = styled(Toast.Root, {
+  position: "relative",
+  backgroundColor: "$gray800",
+  borderRadius: "$sm",
+  padding: "$3 $5",
+  border: "1px solid $gray600",
+  display: "flex",
+  flexDirection: "column",
+  gap: "$1",
+  width: 360,
+  maxWidth: "calc(100vw - 100px)",
+  '&[data-state="open"]': {
+    animation: `${slideIn2} 200ms ease-out`
+  },
+  '&[data-state="closed"]': {
+    animation: `${slideOut2} 200ms ease-out`
+  }
+});
+var ToastTitle = styled(Toast.Title, {
+  color: "$white",
+  fontSize: "$xl",
+  lineHeight: "$base",
+  maxWidth: 330,
+  overflow: "hidden",
+  textOverflow: "ellipsis"
+});
+var ToastDescription = styled(Toast.Description, {
+  color: "$gray200",
+  lineHeight: "$base",
+  maxWidth: 330,
+  overflow: "hidden",
+  textOverflow: "ellipsis"
+});
+var ToastClose = styled(Toast.Close, {
+  all: "unset",
+  position: "absolute",
+  top: "$4",
+  right: "$4",
+  cursor: "pointer",
+  svg: {
+    color: "$gray200",
+    width: "$5",
+    height: "$5"
+  }
+});
+var ToastViewport = styled(Toast.Viewport, {
+  position: "fixed",
+  bottom: "$8",
+  right: "$8",
+  margin: 0,
+  maxWidth: "100vw",
+  listStyle: "none",
+  outline: "none",
+  zIndex: 2147483647
+});
+
+// src/components/Toast/index.tsx
+import { jsx as jsx5, jsxs as jsxs4 } from "react/jsx-runtime";
+function Toast2({
+  ButtonDisabled,
+  ButtonName,
+  ButtonSize,
+  ButtonType,
+  AlertTitle,
+  AlertDescription,
+  DurationMs
+}) {
+  const [isOpen, setIsOpen] = useState(false);
+  return /* @__PURE__ */ jsxs4(ToastProvider, { duration: DurationMs, swipeDirection: "right", children: [
+    /* @__PURE__ */ jsx5(
+      Button,
+      {
+        disabled: ButtonDisabled,
+        onClick: () => {
+          setIsOpen(true);
+        },
+        variant: ButtonType,
+        size: ButtonSize,
+        children: ButtonName
+      }
+    ),
+    /* @__PURE__ */ jsxs4(ToastRoot, { open: isOpen, onOpenChange: setIsOpen, children: [
+      /* @__PURE__ */ jsx5(ToastTitle, { asChild: true, children: /* @__PURE__ */ jsx5(Heading, { children: AlertTitle || "Title" }) }),
+      /* @__PURE__ */ jsx5(ToastDescription, { asChild: true, children: /* @__PURE__ */ jsx5(Text, { size: "sm", children: AlertDescription || "Description" }) }),
+      /* @__PURE__ */ jsx5(ToastClose, { children: /* @__PURE__ */ jsx5(X, {}) })
+    ] }),
+    /* @__PURE__ */ jsx5(ToastViewport, {})
+  ] });
+}
+Toast2.displayName = "Toast";
 export {
   Avatar2 as Avatar,
   Box,
@@ -501,5 +636,14 @@ export {
   MultiStep,
   Text,
   TextArea,
-  TextInput
+  TextInput,
+  Toast2 as Toast,
+  config,
+  createTheme,
+  css,
+  getCssText,
+  globalCss,
+  keyframes,
+  styled,
+  theme
 };
