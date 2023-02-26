@@ -1,0 +1,2 @@
+import{A as t}from"./index-d1cb4d73.js";import"./index-43ec82a8.js";import"./es.object.get-own-property-descriptor-037fa860.js";import"./index-648f2948.js";import"./jsx-runtime-1becbe17.js";const p={title:"Data display/Avatar",component:t,args:{src:"https://github.com/phelipescript.png",alt:"Phelipe Pereira"},argTypes:{src:{control:{type:"text"}}}},e={},c={args:{src:void 0}},l=["Primary","WithFallback"];export{e as Primary,c as WithFallback,l as __namedExportsOrder,p as default};
+//# sourceMappingURL=Avatar.stories-1f90066a.js.map
