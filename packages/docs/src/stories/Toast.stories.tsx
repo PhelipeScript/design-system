@@ -5,15 +5,22 @@ export default {
   title: 'Surfaces/Toast',
   component: Toast,
   args: {
-    ButtonName: 'Agendar',
+    Theme: 'dark',
+    DurationMs: 1500,
     AlertTitle: 'Agendamento realizado',
     AlertDescription: 'Quarta-feira, 23 de Outubro às 16h',
+    ButtonName: 'Agendar',
     ButtonSize: 'md',
     ButtonType: 'secondary',
     ButtonDisabled: false,
-    DurationMs: 5000,
   },
   argTypes: {
+    Theme: {
+      options: ['dark', 'light'],
+      control: {
+        type: 'inline-radio',
+      },
+    },
     ButtonSize: {
       options: ['sm', 'md'],
       control: {
@@ -43,4 +50,10 @@ export default {
   ],
 } as Meta<ToastProps>
 
-export const Primary: StoryObj<ToastProps> = {}
+export const Dark: StoryObj<ToastProps> = {}
+
+export const Light: StoryObj<ToastProps> = {
+  args: {
+    Theme: 'light',
+  },
+}

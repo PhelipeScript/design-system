@@ -23,7 +23,6 @@ const slideOut = keyframes({
 
 export const ToastRoot = styled(Toast.Root, {
   position: 'relative',
-  backgroundColor: '$gray800',
   borderRadius: '$sm',
   padding: '$3 $5',
   border: '1px solid $gray600',
@@ -40,10 +39,27 @@ export const ToastRoot = styled(Toast.Root, {
   '&[data-state="closed"]': {
     animation: `${slideOut} 200ms ease-out`,
   },
+
+  variants: {
+    themes: {
+      light: {
+        backgroundColor: '$gray100',
+        color: '$gray800',
+      },
+      dark: {
+        backgroundColor: '$gray800',
+        color: '$white',
+      },
+    },
+  },
+
+  defaultVariants: {
+    themes: 'dark',
+  },
 })
 
 export const ToastTitle = styled(Toast.Title, {
-  color: '$white',
+  color: 'inherit',
   fontSize: '$xl',
   lineHeight: '$base',
   maxWidth: 330,
@@ -52,7 +68,8 @@ export const ToastTitle = styled(Toast.Title, {
 })
 
 export const ToastDescription = styled(Toast.Description, {
-  color: '$gray200',
+  color: 'inherit',
+  opacity: 0.7,
   lineHeight: '$base',
   maxWidth: 330,
   overflow: 'hidden',
@@ -68,7 +85,6 @@ export const ToastClose = styled(Toast.Close, {
   cursor: 'pointer',
 
   svg: {
-    color: '$gray200',
     width: '$5',
     height: '$5',
   },

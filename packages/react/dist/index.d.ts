@@ -1904,7 +1904,9 @@ declare namespace MultiStep {
     var displayName: string;
 }
 
-declare const ToastRoot: _stitches_react_types_styled_component.StyledComponent<react.ForwardRefExoticComponent<Toast$1.ToastProps & react.RefAttributes<HTMLLIElement>>, {}, {}, _stitches_react_types_css_util.CSS<{}, {
+declare const ToastRoot: _stitches_react_types_styled_component.StyledComponent<react.ForwardRefExoticComponent<Toast$1.ToastProps & react.RefAttributes<HTMLLIElement>>, {
+    themes?: "light" | "dark" | undefined;
+}, {}, _stitches_react_types_css_util.CSS<{}, {
     colors: {
         white: string;
         black: string;
@@ -2117,8 +2119,9 @@ interface ToastProps extends ComponentProps<typeof ToastRoot> {
     AlertTitle: string;
     AlertDescription: string;
     DurationMs: number;
+    Theme: 'dark' | 'light';
 }
-declare function Toast({ ButtonDisabled, ButtonName, ButtonSize, ButtonType, AlertTitle, AlertDescription, DurationMs, }: ToastProps): JSX.Element;
+declare function Toast({ ButtonDisabled, ButtonName, ButtonSize, ButtonType, AlertTitle, AlertDescription, DurationMs, Theme, }: ToastProps): JSX.Element;
 declare namespace Toast {
     var displayName: string;
 }

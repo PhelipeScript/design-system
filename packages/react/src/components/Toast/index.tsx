@@ -20,6 +20,7 @@ export interface ToastProps extends ComponentProps<typeof ToastRoot> {
   AlertTitle: string
   AlertDescription: string
   DurationMs: number
+  Theme: 'dark' | 'light'
 }
 
 export function Toast({
@@ -30,6 +31,7 @@ export function Toast({
   AlertTitle,
   AlertDescription,
   DurationMs,
+  Theme,
 }: ToastProps) {
   const [isOpen, setIsOpen] = useState(false)
 
@@ -46,7 +48,7 @@ export function Toast({
         {ButtonName}
       </Button>
 
-      <ToastRoot open={isOpen} onOpenChange={setIsOpen}>
+      <ToastRoot themes={Theme} open={isOpen} onOpenChange={setIsOpen}>
         <ToastTitle asChild>
           <Heading>{AlertTitle || 'Title'}</Heading>
         </ToastTitle>

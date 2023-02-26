@@ -539,7 +539,6 @@ var slideOut2 = keyframes({
 });
 var ToastRoot = styled(Toast.Root, {
   position: "relative",
-  backgroundColor: "$gray800",
   borderRadius: "$sm",
   padding: "$3 $5",
   border: "1px solid $gray600",
@@ -553,10 +552,25 @@ var ToastRoot = styled(Toast.Root, {
   },
   '&[data-state="closed"]': {
     animation: `${slideOut2} 200ms ease-out`
+  },
+  variants: {
+    themes: {
+      light: {
+        backgroundColor: "$gray100",
+        color: "$gray800"
+      },
+      dark: {
+        backgroundColor: "$gray800",
+        color: "$white"
+      }
+    }
+  },
+  defaultVariants: {
+    themes: "dark"
   }
 });
 var ToastTitle = styled(Toast.Title, {
-  color: "$white",
+  color: "inherit",
   fontSize: "$xl",
   lineHeight: "$base",
   maxWidth: 330,
@@ -564,7 +578,8 @@ var ToastTitle = styled(Toast.Title, {
   textOverflow: "ellipsis"
 });
 var ToastDescription = styled(Toast.Description, {
-  color: "$gray200",
+  color: "inherit",
+  opacity: 0.7,
   lineHeight: "$base",
   maxWidth: 330,
   overflow: "hidden",
@@ -577,7 +592,6 @@ var ToastClose = styled(Toast.Close, {
   right: "$4",
   cursor: "pointer",
   svg: {
-    color: "$gray200",
     width: "$5",
     height: "$5"
   }
@@ -602,7 +616,8 @@ function Toast2({
   ButtonType,
   AlertTitle,
   AlertDescription,
-  DurationMs
+  DurationMs,
+  Theme
 }) {
   const [isOpen, setIsOpen] = useState(false);
   return /* @__PURE__ */ jsxs4(ToastProvider, { duration: DurationMs, swipeDirection: "right", children: [
@@ -618,7 +633,7 @@ function Toast2({
         children: ButtonName
       }
     ),
-    /* @__PURE__ */ jsxs4(ToastRoot, { open: isOpen, onOpenChange: setIsOpen, children: [
+    /* @__PURE__ */ jsxs4(ToastRoot, { themes: Theme, open: isOpen, onOpenChange: setIsOpen, children: [
       /* @__PURE__ */ jsx5(ToastTitle, { asChild: true, children: /* @__PURE__ */ jsx5(Heading, { children: AlertTitle || "Title" }) }),
       /* @__PURE__ */ jsx5(ToastDescription, { asChild: true, children: /* @__PURE__ */ jsx5(Text, { size: "sm", children: AlertDescription || "Description" }) }),
       /* @__PURE__ */ jsx5(ToastClose, { children: /* @__PURE__ */ jsx5(X, {}) })
