@@ -69,6 +69,7 @@ __export(src_exports, {
   TextArea: () => TextArea,
   TextInput: () => TextInput,
   Toast: () => Toast2,
+  Tooltip: () => Tooltip2,
   config: () => config,
   createTheme: () => createTheme,
   css: () => css,
@@ -692,6 +693,148 @@ function Toast2({
   ] });
 }
 Toast2.displayName = "Toast";
+
+// src/components/Tooltip/styles.ts
+var Tooltip = __toESM(require("@radix-ui/react-tooltip"));
+var TooltipProvider = styled(Tooltip.Provider, {});
+var TooltipRoot = styled(Tooltip.Root, {});
+var TooltipTrigger = styled(Tooltip.Trigger, {
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  gap: "$3",
+  padding: "$4 $7",
+  minWidth: "4.179rem",
+  minHeight: "3.625rem",
+  border: 0,
+  borderRadius: "$sm",
+  color: "$white",
+  variants: {
+    backgroundButton: {
+      white: { backgroundColor: "$white" },
+      black: { backgroundColor: "$black" },
+      gray100: { backgroundColor: "$gray100" },
+      gray200: { backgroundColor: "$gray200" },
+      gray400: { backgroundColor: "$gray400" },
+      gray500: { backgroundColor: "$gray500" },
+      gray600: { backgroundColor: "$gray600" },
+      gray700: { backgroundColor: "$gray700" },
+      gray800: { backgroundColor: "$gray800" },
+      gray900: { backgroundColor: "$gray900" },
+      ignite300: { backgroundColor: "$ignite300" },
+      ignite500: { backgroundColor: "$ignite500" },
+      ignite700: { backgroundColor: "$ignite700" },
+      ignite900: { backgroundColor: "$ignite900" }
+    }
+  },
+  defaultVariants: {
+    backgroundButton: "gray600"
+  }
+});
+var TooltipPortal = styled(Tooltip.Portal, {});
+var TooltipContent = styled(Tooltip.Content, {
+  display: "flex",
+  alignItems: "center",
+  padding: "$3 $4",
+  borderRadius: "$sm",
+  color: "$ignite300",
+  fontFamily: "$default",
+  fontWeight: "$medium",
+  fontSize: "$xs",
+  lineHeight: "$short",
+  textAlign: "center",
+  variants: {
+    contentBackground: {
+      white: { backgroundColor: "$white" },
+      black: { backgroundColor: "$black" },
+      gray100: { backgroundColor: "$gray100" },
+      gray200: { backgroundColor: "$gray200" },
+      gray400: { backgroundColor: "$gray400" },
+      gray500: { backgroundColor: "$gray500" },
+      gray600: { backgroundColor: "$gray600" },
+      gray700: { backgroundColor: "$gray700" },
+      gray800: { backgroundColor: "$gray800" },
+      gray900: { backgroundColor: "$gray900" },
+      ignite300: { backgroundColor: "$ignite300" },
+      ignite500: { backgroundColor: "$ignite500" },
+      ignite700: { backgroundColor: "$ignite700" },
+      ignite900: { backgroundColor: "$ignite900" }
+    },
+    contentColor: {
+      white: { color: "$white" },
+      black: { color: "$black" },
+      gray100: { color: "$gray100" },
+      gray200: { color: "$gray200" },
+      gray400: { color: "$gray400" },
+      gray500: { color: "$gray500" },
+      gray600: { color: "$gray600" },
+      gray700: { color: "$gray700" },
+      gray800: { color: "$gray800" },
+      gray900: { color: "$gray900" },
+      ignite300: { color: "$ignite300" },
+      ignite500: { color: "$ignite500" },
+      ignite700: { color: "$ignite700" },
+      ignite900: { color: "$ignite900" }
+    }
+  },
+  defaultVariants: {
+    contentBackground: "gray900",
+    contentColor: "gray100"
+  }
+});
+var TooltipArrow = styled(Tooltip.Arrow, {
+  variants: {
+    arrowColor: {
+      white: { fill: "$white" },
+      black: { fill: "$black" },
+      gray100: { fill: "$gray100" },
+      gray200: { fill: "$gray200" },
+      gray400: { fill: "$gray400" },
+      gray500: { fill: "$gray500" },
+      gray600: { fill: "$gray600" },
+      gray700: { fill: "$gray700" },
+      gray800: { fill: "$gray800" },
+      gray900: { fill: "$gray900" },
+      ignite300: { fill: "$ignite300" },
+      ignite500: { fill: "$ignite500" },
+      ignite700: { fill: "$ignite700" },
+      ignite900: { fill: "$ignite900" }
+    }
+  },
+  defaultVariants: {
+    arrowColor: "gray600"
+  }
+});
+
+// src/components/Tooltip/index.tsx
+var import_jsx_runtime6 = require("react/jsx-runtime");
+function Tooltip2({
+  children,
+  Content: Content2,
+  backgroundButton,
+  ContentSide,
+  ContentColor,
+  ContentBackground
+}) {
+  const hasChild = !!children && true;
+  return /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(TooltipProvider, { children: /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)(TooltipRoot, { children: [
+    /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(TooltipTrigger, { asChild: hasChild, backgroundButton, children: children || 23 }),
+    /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(TooltipPortal, { children: /* @__PURE__ */ (0, import_jsx_runtime6.jsxs)(
+      TooltipContent,
+      {
+        contentColor: ContentColor,
+        contentBackground: ContentBackground,
+        sideOffset: 5,
+        side: ContentSide,
+        children: [
+          Content2,
+          /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(TooltipArrow, { arrowColor: ContentBackground })
+        ]
+      }
+    ) })
+  ] }) });
+}
+Tooltip2.displayName = "Tooltip";
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
   Avatar,
@@ -704,6 +847,7 @@ Toast2.displayName = "Toast";
   TextArea,
   TextInput,
   Toast,
+  Tooltip,
   config,
   createTheme,
   css,
